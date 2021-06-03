@@ -1,0 +1,19 @@
+{
+    "name": "rokmohar/payum-valu-bundle",
+    "description": "Payum Valu Bundle",
+    "type": "library",
+    "keywords": ["payum", "valu", "symfony", "bundle"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rok Mohar",
+            "email": "rok.mohar@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "RokMohar\\PayumValuBundle\\": "src/" }
+    },
+    "require": {
+        "payum/payum-bundle": "^2.4"
+    }
+}

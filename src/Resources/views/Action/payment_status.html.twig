@@ -1,0 +1,47 @@
+{% extends layout ?: '@PayumCore/layout.html.twig' %}
+
+{% set isCounterExpired = refreshCounter > 60 %}
+
+{% block payum_stylesheets %}
+    {% if status == 'vobdelavi' and not isCounterExpired %}
+        <meta http-equiv="refresh" content="1; url={{ refreshUrl }}">
+    {% endif %}
+
+    <meta name="Price" content="{{ price }}">
+    <meta name="Quantity" content="{{ quantity }}">
+    <meta name="VATRate" content="{{ vatRate }}">
+    <meta name="Description" content="{{ description }}">
+    <meta name="Currency" content="{{ currency }}">
+
+    <style type="text/css">
+        .container { text-align: center; }
+    </style>
+
+    {{ parent() }}
+{% endblock %}
+
+{% block payum_body %}
+    <div class="container">
+        {% block status_heading %}
+            <h1>Valu</h1>
+        {% endblock %}
+
+        {% block status_message %}
+            <p>
+                {% if status == 'potrjeno' %}
+                    Plačilo je potrjeno.
+                {% elseif status == 'zavrnjeno' %}
+                    Plačilo je zavrnjeno.
+                {% elseif status == 'vobdelavi' %}
+                    {% if isCounterExpired %}
+                        Seja za potrditev se je iztekla.
+                    {% else %}
+                        Čakanje na potrditev ...
+                    {% endif %}
+                {% else %}
+                    Prišlo je do napake. Poskusite ponovno ali kontaktirajte tehnično pomoč.
+                {% endif %}
+            </p>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,3 @@
+payum_valu:
+    resource: '@RokMoharPayumValuBundle/Controller/ValuController.php'
+    type: annotation

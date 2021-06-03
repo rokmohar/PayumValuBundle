@@ -1,0 +1,7 @@
+services:
+    rokmohar.payum_value.gateway_factory_builder:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            $gatewayFactoryClass: RokMohar\PayumValuBundle\ValuGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: valu }
