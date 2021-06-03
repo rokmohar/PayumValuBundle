@@ -15,5 +15,8 @@
     },
     "require": {
         "payum/payum-bundle": "^2.4"
+    },
+    "require-dev": {
+        "php-http/guzzle6-adapter": "^2.0"
     }
 }
