@@ -2,13 +2,13 @@
 
 namespace RokMohar\PayumValuBundle\Action\Api;
 
-use RokMohar\PayumValuBundle\Request\Api\CreateCapture;
 use ArrayAccess;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\GenericTokenFactoryAwareTrait;
+use RokMohar\PayumValuBundle\Request\Api\CreateCapture;
 
 class CreateCaptureAction extends AbstractAction implements GenericTokenFactoryAwareInterface
 {

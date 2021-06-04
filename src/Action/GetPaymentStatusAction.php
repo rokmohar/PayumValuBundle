@@ -2,8 +2,6 @@
 
 namespace RokMohar\PayumValuBundle\Action;
 
-use RokMohar\PayumValuBundle\Request\GetPaymentStatus;
-use RokMohar\PayumValuBundle\ValuApi;
 use ArrayAccess;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
@@ -14,6 +12,8 @@ use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Request\GetHttpRequest;
 use Payum\Core\Request\RenderTemplate;
+use RokMohar\PayumValuBundle\Request\GetPaymentStatus;
+use RokMohar\PayumValuBundle\ValuApi;
 
 class GetPaymentStatusAction implements ActionInterface, GatewayAwareInterface
 {

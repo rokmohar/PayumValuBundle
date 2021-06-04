@@ -2,14 +2,14 @@
 
 namespace RokMohar\PayumValuBundle;
 
+use Payum\Core\Bridge\Spl\ArrayObject;
+use Payum\Core\GatewayFactory;
 use RokMohar\PayumValuBundle\Action\Api\CreateCaptureAction;
 use RokMohar\PayumValuBundle\Action\CancelAction;
 use RokMohar\PayumValuBundle\Action\CaptureAction;
 use RokMohar\PayumValuBundle\Action\GetPaymentStatusAction;
 use RokMohar\PayumValuBundle\Action\NotifyAction;
 use RokMohar\PayumValuBundle\Action\StatusAction;
-use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\GatewayFactory;
 
 class ValuGatewayFactory extends GatewayFactory
 {

@@ -2,15 +2,17 @@
 
 namespace RokMohar\PayumValuBundle\Controller;
 
+use Exception;
+use Payum\Core\Payum;
+use Payum\Core\Request\Cancel;
+use Payum\Core\Request\Notify;
+use Payum\Core\Security\TokenInterface;
 use RokMohar\PayumValuBundle\Event\CancelAfterEvent;
 use RokMohar\PayumValuBundle\Event\ConfirmationBeforeEvent;
 use RokMohar\PayumValuBundle\Event\StatusBeforeEvent;
 use RokMohar\PayumValuBundle\Request\GetPaymentStatus;
-use Exception;
-use Payum\Core\Request\Cancel;
-use Payum\Core\Request\Notify;
-use Payum\Core\Security\TokenInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,11 +29,11 @@ class ValuController extends AbstractController
      */
     public function statusAction(Request $request): Response
     {
-        $payum = $this->get('payum');
+        $payum = $this->getPayum();
         $token = $this->getTokenFromRequest($request);
 
         $beforeEvent = new StatusBeforeEvent($request, $token);
-        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher = $this->getEventDispatcher();
         $dispatcher->dispatch($beforeEvent, StatusBeforeEvent::NAME);
 
         if ($beforeEvent->getResponse() !== null) {
@@ -59,11 +61,11 @@ class ValuController extends AbstractController
             throw $this->createNotFoundException('Confirmation ID is required.');
         }
 
-        $payum = $this->get('payum');
+        $payum = $this->getPayum();
         $token = $payum->getHttpRequestVerifier()->verify($request);
 
         $beforeEvent = new ConfirmationBeforeEvent($request, $token);
-        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher = $this->getEventDispatcher();
         $dispatcher->dispatch($beforeEvent, ConfirmationBeforeEvent::NAME);
 
         if ($beforeEvent->getResponse() !== null) {
@@ -84,14 +86,14 @@ class ValuController extends AbstractController
      */
     public function cancelAction(Request $request): Response
     {
-        $payum = $this->get('payum');
+        $payum = $this->getPayum();
         $token = $this->getTokenFromRequest($request);
 
         $gateway = $payum->getGateway($token->getGatewayName());
         $gateway->execute(new Cancel($token));
 
         $afterEvent = new CancelAfterEvent($request, $token);
-        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher = $this->getEventDispatcher();
         $dispatcher->dispatch($afterEvent, CancelAfterEvent::NAME);
 
         if ($afterEvent->getResponse() !== null) {
@@ -114,7 +116,7 @@ class ValuController extends AbstractController
             throw $this->createNotFoundException('Confirmation ID is required.');
         }
 
-        $payum = $this->get('payum');
+        $payum = $this->getPayum();
         $tokenStorage = $payum->getTokenStorage();
 
         /** @var TokenInterface|null $token */
@@ -125,5 +127,27 @@ class ValuController extends AbstractController
         }
 
         return $token;
+    }
+
+    /**
+     * @return Payum
+     */
+    private function getPayum(): Payum
+    {
+        /** @var Payum $payum */
+        $payum = $this->get('payum');
+
+        return $payum;
+    }
+
+    /**
+     * @return EventDispatcherInterface
+     */
+    private function getEventDispatcher(): EventDispatcherInterface
+    {
+        /** @var EventDispatcherInterface $eventDispatcher */
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        return $eventDispatcher;
     }
 }

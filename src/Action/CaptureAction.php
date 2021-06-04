@@ -2,7 +2,6 @@
 
 namespace RokMohar\PayumValuBundle\Action;
 
-use RokMohar\PayumValuBundle\Request\Api\CreateCapture;
 use ArrayAccess;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
@@ -10,6 +9,7 @@ use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Capture;
 use Payum\Core\Security\TokenInterface;
+use RokMohar\PayumValuBundle\Request\Api\CreateCapture;
 
 class CaptureAction implements ActionInterface, GatewayAwareInterface
 {

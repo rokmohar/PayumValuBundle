@@ -2,7 +2,6 @@
 
 namespace RokMohar\PayumValuBundle\Action;
 
-use RokMohar\PayumValuBundle\ValuApi;
 use ArrayAccess;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
@@ -13,6 +12,7 @@ use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Request\GetHttpRequest;
 use Payum\Core\Request\GetHumanStatus;
 use Payum\Core\Request\Notify;
+use RokMohar\PayumValuBundle\ValuApi;
 
 class NotifyAction implements ActionInterface, GatewayAwareInterface
 {

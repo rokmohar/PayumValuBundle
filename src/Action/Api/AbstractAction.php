@@ -2,12 +2,12 @@
 
 namespace RokMohar\PayumValuBundle\Action\Api;
 
-use RokMohar\PayumValuBundle\ValuApi;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\ApiAwareTrait;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
+use RokMohar\PayumValuBundle\ValuApi;
 
 abstract class AbstractAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
 {
